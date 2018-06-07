@@ -1,7 +1,18 @@
-describe('Bicycle-Weather Http REST api', () => {
+import { BicycleWeatherApi } from './bicycle-weather-api';
 
-    test('it should say yes', () => {
-        expect('yes').toBe('yes');
+describe('BicycleWeather REST Api', () => {
+
+    const bicycleWeatherApi = new BicycleWeatherApi();
+
+    test('it should return empty response when empty town', () => {
+        const town = bicycleWeatherApi.getWeatherOf('');
+
+        expect(town).toEqual({});
     });
 
+    test('it should return empty response when empty town', () => {
+        const town = bicycleWeatherApi.getWeatherOf(undefined);
+
+        expect(town).toEqual({});
+    });
 });
