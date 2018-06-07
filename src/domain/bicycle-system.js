@@ -1,13 +1,13 @@
-export class BicycleSystem {
-    constructor({name, location}) {
-        this._name = name;
-        this._location = location;
-    }
+export default class BicycleSystem {
+  constructor({ name, location }) {
+    this.name = name;
+    this.location = location;
+  }
 
-    get name() {
-        return this._name;
-    }
-    get location() {
-        return this._location;
-    }
+  get name() {
+    return this.name;
+  }
+  get location() {
+    return this.location;
+  }
 }

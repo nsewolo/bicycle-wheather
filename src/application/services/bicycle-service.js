@@ -1,5 +1,5 @@
 import { BicycleInterface } from './interfaces';
 
-export class BicycleService extends BicycleInterface{
+export default class BicycleService extends BicycleInterface {
 
 }
