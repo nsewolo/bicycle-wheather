@@ -1,5 +1,10 @@
 import { BicycleInterface } from './interfaces';
 
-export class BicycleService extends BicycleInterface {
+export class BicycleService {
+
+    constructor({bicycleInterface}) {
+        this.bicycleInterface = bicycleInterface;
+    }
+
 
 }
