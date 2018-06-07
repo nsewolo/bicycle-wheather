@@ -1,4 +1,4 @@
-export default class Condition {
+export class Condition {
   constructor({ date, temperature, text }) {
     this.date = date;
     this.temperature = temperature;

@@ -1,4 +1,4 @@
-export default class BicycleSystem {
+export class BicycleSystem {
   constructor({ name, location }) {
     this.name = name;
     this.location = location;

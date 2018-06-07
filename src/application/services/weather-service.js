@@ -1,3 +1,3 @@
 import { WeatherInterface } from './interfaces';
 
-export default class WeatherService extends WeatherInterface {}
+export class WeatherService extends WeatherInterface {}

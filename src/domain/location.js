@@ -1,4 +1,4 @@
-export default class Location {
+export class Location {
   constructor({
     city, country, latitude, longitude,
   }) {

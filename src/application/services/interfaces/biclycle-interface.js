@@ -1,1 +1,1 @@
-export default class BicycleInterface {}
+export class BicycleInterface {}

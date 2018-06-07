@@ -1,1 +1,1 @@
-export default class WeatherInterface {}
+export class WeatherInterface {}

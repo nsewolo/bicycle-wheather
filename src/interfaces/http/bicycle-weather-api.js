@@ -1,6 +1,6 @@
 import { BicycleService, WeatherService } from '../../application';
 
-export default class BicycleWeatherApi {
+export class BicycleWeatherApi {
   getWeatherOf( town ) {
     if (!town) {
       return {};
