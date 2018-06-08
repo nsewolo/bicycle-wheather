@@ -1,7 +1,7 @@
 import { BicycleService } from './bicycle-service';
 import { WeatherService } from './weather-service';
 
-export class BicycleWeatherComposerService {
+export class BicycleWeatherComposer {
 
   constructor() {
     this.bicycleService = new BicycleService();
@@ -9,12 +9,13 @@ export class BicycleWeatherComposerService {
   }
 
   getCityWeather(company) {
-    if (!company) {
+    if ( !company ) {
       return undefined;
     }
     return this._getCityWeatherDetails(company);
   }
 
+  // private
   _getCityWeatherDetails(company) {
     return {
       'name': company,

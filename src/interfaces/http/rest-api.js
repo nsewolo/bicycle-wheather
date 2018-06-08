@@ -1,6 +1,6 @@
 import express from 'express';
 import bodyParser from 'body-parser';
-import { BicycleWeatherComposerService } from '../../application';
+import { BicycleWeatherComposer } from '../../application';
 
 const HTTP_PORT = 3000;
 const app = express();
@@ -10,7 +10,7 @@ export class RestApi {
   constructor() {
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({extended: true}));
-    this.composerService = new BicycleWeatherComposerService();
+    this.composerService = new BicycleWeatherComposer();
   }
 
   start() {
