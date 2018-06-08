@@ -6,7 +6,8 @@
   "scripts": {
     "test": "jest",
     "build": "rimraf dist/ && babel ./ --out-dir dist/ --ignore ./node_modules,./.babelrc,./package.json,./npm-debug.log,/**/*.spec.js --copy-files",
-    "start": "npm run build && node dist/starter.js"
+    "start": "npm run build && node dist/starter.js",
+    "debug": "npm run build && node %NODE_DEBUG_OPTION% dist/starter.js"
   },
   "keywords": [],
   "author": "dooley.nsewolo",
