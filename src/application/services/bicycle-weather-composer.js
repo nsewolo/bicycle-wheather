@@ -15,10 +15,14 @@ export class BicycleWeatherComposer {
     return this._getCityWeatherDetails(company);
   }
 
-  // private
+  // private methods
   _getCityWeatherDetails(company) {
-    return {
-      'name': company,
-    };
+    const result = this.bicycleService.findCompany(company);
+    if ( result ){
+      return {
+        'name': company,
+      };
+    }
+    return result;
   }
 }

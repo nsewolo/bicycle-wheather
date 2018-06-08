@@ -33,4 +33,8 @@ export class BicycleService {
   //         throw {message: `Error when validating json: ${e.message}`};
   //     }
   // }
+
+  findCompany(company) {
+    return undefined;
+  }
 }
