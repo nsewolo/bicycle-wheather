@@ -34,28 +34,41 @@ describe('BicycleWeatherCompoerService', () => {
   });
 
   test('it should return location weather details when company is known', () => {
+    // Given
+    const location = {
+      "city": "Montréal, QC",
+      "country": "CA",
+      "latitude": 45.508693,
+      "longitude": -73.553928
+    };
+    const condition = {
+      "code": "28",
+      "date": "Thu, 07 Jun 2018 07:00 AM EDT",
+      "temp": "56",
+      "text": "Mostly Cloudy"
+    };
     const expectedResult = {
       "name": "Bixi",
-      "location": {
-        "city": "Montréal, QC",
-        "country": "CA",
-        "latitude": 45.508693,
-        "longitude": -73.553928
-      },
-      "condition": {
-        "code": "28",
-        "date": "Thu, 07 Jun 2018 07:00 AM EDT",
-        "temp": "56",
-        "text": "Mostly Cloudy"
-      }
+      "location": location,
+      "condition": condition
     };
-    bicycleWeatherComposerService.getCityWeather = jest.fn(() => expectedResult);
-    const company = 'bixi';
-    const result = bicycleWeatherComposerService.getCityWeather(company);
+    const bicycleService = new BicycleService();
+    const weatherService = new WeatherService();
+    bicycleService.findLocationOf = jest.fn(() => location);
+    weatherService.findConditionOf = jest.fn(() => condition);
+    const bicycleWeatherComposerService = new BicycleWeatherComposer({ bicycleService, weatherService });
 
+    // When
+    const result = bicycleWeatherComposerService.getCityWeather('Bixi');
+
+    // Then
     expect(result).toEqual(expectedResult);
-    expect(bicycleWeatherComposerService.getCityWeather).toHaveBeenCalled();
-    expect(bicycleWeatherComposerService.getCityWeather).toHaveBeenCalledTimes(1);
-    expect(bicycleWeatherComposerService.getCityWeather).toHaveBeenCalledWith(company);
+    expect(bicycleService.findLocationOf).toHaveBeenCalled();
+    expect(bicycleService.findLocationOf).toHaveBeenCalledTimes(1);
+    expect(bicycleService.findLocationOf).toHaveBeenCalledWith('Bixi');
+
+    expect(weatherService.findConditionOf).toHaveBeenCalled();
+    expect(weatherService.findConditionOf).toHaveBeenCalledTimes(1);
+    expect(weatherService.findConditionOf).toHaveBeenCalledWith('Montréal, QC');
   });
 });

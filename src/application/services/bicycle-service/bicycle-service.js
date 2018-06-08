@@ -34,7 +34,7 @@ export class BicycleService {
   //     }
   // }
 
-  findCompany(company) {
+  findLocationOf(company) {
     return undefined;
   }
 }
