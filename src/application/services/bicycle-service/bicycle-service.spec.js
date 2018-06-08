@@ -1,4 +1,5 @@
 import axios from 'axios';
+import JSON_DATA from '../../data/networks';
 import { BicycleService } from './bicycle-service';
 
 describe('BicycleService', () => {
@@ -45,52 +46,20 @@ describe('BicycleService', () => {
 
     test('it should return city details', async () => {
       // Given
-      const response = {
-        data: [{
-          "networks": [
-            {
-              "company": [
-                "Motivate International, Inc.",
-                "PBSC Urban Solutions",
-                "BIXI Montr\u00e9al"
-              ],
-              "gbfs_href": "https://api-core.bixi.com/gbfs/gbfs.json",
-              "href": "/v2/networks/bixi-montreal",
-              "id": "bixi-montreal",
-              "location": {
-                "city": "Montr\u00e9al, QC",
-                "country": "CA",
-                "latitude": 45.508693,
-                "longitude": -73.553928
-              },
-              "name": "Bixi"
-            },
-            {
-              "company": [
-                "PBSC",
-                "Alta Bicycle Share, Inc"
-              ],
-              "href": "/v2/networks/melbourne-bike-share",
-              "id": "melbourne-bike-share",
-              "location": {
-                "city": "Melbourne",
-                "country": "AU",
-                "latitude": -37.814107,
-                "longitude": 144.96328
-              },
-              "name": "Melbourne Bike Share"
-            }
-          ]
-        }]
+      const expectation = {
+        "city": "Montréal, QC",
+        "country": "CA",
+        "latitude": 45.508693,
+        "longitude": -73.553928
       };
       const httpService = {};
-      httpService.get = jest.fn(() => response);
+      httpService.get = jest.fn(() => JSON_DATA);
       const mockedService = new BicycleService({httpService});
 
       // When
-      const location = await mockedService.findLocationOf('Bixi');
+      const result = await mockedService.findLocationOf('Bixi');
 
-      expect(location).toEqual({});
+      expect(result).toEqual(expectation);
       expect(httpService.get).toHaveBeenCalled();
       expect(httpService.get).toHaveBeenCalledWith('http://api.citybik.es/v2/networks');
     });
