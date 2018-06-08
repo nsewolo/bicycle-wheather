@@ -1,5 +1,5 @@
 export class BicycleSystem {
-  constructor({ name, location }) {
+  constructor({name, location}) {
     this.name = name;
     this.location = location;
   }
@@ -7,6 +7,7 @@ export class BicycleSystem {
   get name() {
     return this.name;
   }
+
   get location() {
     return this.location;
   }

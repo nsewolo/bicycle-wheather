@@ -1,6 +1,6 @@
-import {BicycleWeatherRestApi} from './src/interfaces/http/bicycle-weather-rest-api';
+import { RestApi } from './src/interfaces';
 
 /**
- * Starter
+ * Start the Rest API
  */
-new BicycleWeatherRestApi().starter();
+new RestApi().start();

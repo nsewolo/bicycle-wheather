@@ -1,1 +1,1 @@
-export * from './bicycle-weather-rest-api';
+export * from './rest-api';

@@ -1,5 +1,5 @@
 export class Condition {
-  constructor({ date, temperature, text }) {
+  constructor({date, temperature, text}) {
     this.date = date;
     this.temperature = temperature;
     this.text = text;
@@ -8,9 +8,11 @@ export class Condition {
   get text() {
     return this.text;
   }
+
   get temperature() {
     return this.temperature;
   }
+
   get date() {
     return this.ate;
   }

@@ -4,15 +4,15 @@ import { BicycleWeatherComposerService } from './bicycle-weather-composer-servic
 
 describe('BicycleWeatherCompoerService', () => {
 
-    const bicycleService = new BicycleService();
-    const weatherService = new WeatherService();
+  const bicycleService = new BicycleService();
+  const weatherService = new WeatherService();
 
-    const bicycleWeatherComposerService = new BicycleWeatherComposerService({bicycleService, weatherService});
+  const bicycleWeatherComposerService = new BicycleWeatherComposerService({bicycleService, weatherService});
 
-    test('it should return undefined when company is empty', () => {
-        const details = bicycleWeatherComposerService.getCityWeather('');
+  test('it should return undefined when company is empty', () => {
+    const details = bicycleWeatherComposerService.getCityWeather('');
 
-        expect(details).toEqual(undefined);
-    });
+    expect(details).toEqual(undefined);
+  });
 
 });
