@@ -2,39 +2,39 @@ import axios from 'axios';
 
 export class BicycleService {
 
-  constructor() {
+  constructor({httpService = axios}) {
+    this.httpService = httpService;
   }
 
-  // async getBicycleCompany(company) {
-  //     if (!company) {
-  //         return undefined;
-  //     }
-  //     return await this.findBicycleCompany(company)
-  // }
-  //
-  // async findBicycleCompany(company) {
-  //     try {
-  //         const response = await axios.get('http://api.citybik.es/v2/networks');
-  //
-  //         console.log('response', response);
-  //         const networks = response['networks'];
-  //
-  //         for (const network of networks.data) {
-  //             let cmp = network['id'];
-  //             if (cmp === company) {
-  //                 console.info(`Returned a valid city: ${cmp}`);
-  //                 return cmp;
-  //             }
-  //         }
-  //         console.debug(`No valid response received from tier api`);
-  //
-  //         return undefined;
-  //     } catch (e) {
-  //         throw {message: `Error when validating json: ${e.message}`};
-  //     }
-  // }
-
   findLocationOf(company) {
+    if ( !company ) {
+      return undefined;
+    }
+    return this._getLocationOfCompany(company);
+  }
+
+  // private methods
+  _getLocationOfCompany(company) {
+    const url = 'http://api.citybik.es/v2/networks';
+
+    const response = this.httpService.get(url);
+    if ( !response ) {
+      console.log(`Invalid response received from '${url}'`);
+      return undefined;
+    }
+    const networks = response['networks'];
+    if ( !networks ) {
+      console.log(`Invalid response received from '${url}' missing 'networks' field`);
+    }
+    for (const network of networks) {
+      const cmp = network['name'];
+      if (cmp === company) {
+        console.info(`Returned a valid city: ${cmp}`);
+        return cmp;
+      }
+    }
+    console.debug(`No valid response received from tier api`);
+
     return undefined;
   }
 }

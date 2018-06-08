@@ -4,7 +4,7 @@ import { WeatherService } from './weather-service';
 export class BicycleWeatherComposer {
 
   constructor({
-                bicycleService = new BicycleService(),
+                bicycleService = new BicycleService({}),
                 weatherService = new WeatherService()}) {
 
     this.bicycleService = bicycleService;

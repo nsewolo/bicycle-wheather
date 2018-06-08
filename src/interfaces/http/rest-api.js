@@ -10,7 +10,7 @@ export class RestApi {
   constructor() {
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({extended: true}));
-    this.composerService = new BicycleWeatherComposer();
+    this.composerService = new BicycleWeatherComposer({});
   }
 
   start() {
