@@ -1,6 +1,6 @@
+import { BicycleService } from './bicycle-service/bicycle-service';
+import { WeatherService } from './weather-service/weather-service';
 import { BicycleWeatherComposerService } from './bicycle-weather-composer-service';
-import {BicycleService} from "./bicycle-service";
-import {WeatherService} from "./weather-service";
 
 describe('BicycleWeatherCompoerService', () => {
 

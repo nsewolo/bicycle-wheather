@@ -1,19 +1,22 @@
+import { BicycleService } from './bicycle-service';
+import { WeatherService } from './weather-service';
+
 export class BicycleWeatherComposerService {
-    constructor({bicycleService, weatherService}) {
-        this.bicycleService = bicycleService;
-        this.weatherService = weatherService;
+
+    constructor() {
+        this.bicycleService = new BicycleService();
+        this.weatherService = new WeatherService();
     }
 
     getCityWeather(company) {
         if ( !company ) {
             return undefined;
         }
-        return this.getCityWeatherDetails(company);
+        return this._getCityWeatherDetails(company);
     }
 
-    getCityWeatherDetails(company) {
-        this.bicycleService.get
-        return  {
+    _getCityWeatherDetails(company) {
+        return {
             'name': company,
         };
     }

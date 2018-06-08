@@ -1,25 +1,42 @@
 import express from 'express';
 import bodyParser from 'body-parser';
+import { BicycleWeatherComposerService } from '../../application';
 
 const HTTP_PORT = 3000;
 const app = express();
-const router = express.Router();
 
 export class BicycleWeatherRestApi {
-    constructor(){
+
+    constructor() {
         app.use(bodyParser.json());
         app.use(bodyParser.urlencoded({extended: true}));
+        this.composerService = new BicycleWeatherComposerService();
     }
 
     starter() {
-        app.get('/', (req, res) => {
-            console.log('Calling path: ', req.route.path);
-            res.send('hello world')
+        app.get('/company/:id', (req, res) => {
+            let id = req.params['id'];
+            if (id) {
+                console.log(`Calling path: ', ${req.route.path}`);
+
+                const details = this.composerService.getCityWeather(id);
+                res
+                    .status(200)
+                    .send(details);
+
+                console.log('Response from api:', details);
+            } else {
+                res
+                    .status(400)
+                    .send({});
+            }
         });
 
         app.get('/health', (req, res) => {
             console.log('Calling path: ', req.route.path);
-            res.send('Info');
+            res
+                .status(200)
+                .send('Health status');
         });
 
         app.listen(HTTP_PORT);

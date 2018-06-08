@@ -1,10 +1,10 @@
-import mockAxios from 'axios';
-import {BicycleInterface} from './biclycle-interface';
+import {BicycleInterface} from "./interfaces/biclycle-interface";
+import {BicycleService} from "./bicycle-service";
 
-describe('BicycleInterface', () => {
+describe('BicycleService', () => {
 
     const BASE_URL = {baseURL: 'http://api.citybik.es/v2/networks'};
-    const bicycleInterface = new BicycleInterface();
+    const bicycleInterface = new BicycleService();
 
     describe('GetCity', () => {
 

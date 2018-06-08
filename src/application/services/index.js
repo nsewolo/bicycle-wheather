@@ -1,2 +1,1 @@
-export * from './bicycle-service';
-export * from './weather-service';
+export * from './bicycle-weather-composer-service';
