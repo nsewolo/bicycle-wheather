@@ -33,6 +33,32 @@ describe('BicycleWeatherCompoerService', () => {
     expect(details).toEqual(undefined);
   });
 
+  test('it should return undefined when weather condition is undefined', () => {
+    // Given
+    const location = {
+      "city": "Montréal, QC",
+      "country": "CA",
+      "latitude": 45.508693,
+      "longitude": -73.553928
+    };
+    const bicycleService = new BicycleService();
+    const weatherService = new WeatherService();
+    bicycleService.findLocationOf = jest.fn(() => location);
+    weatherService.findConditionOf = jest.fn(() => undefined);
+    const bicycleWeatherComposerService = new BicycleWeatherComposer({ bicycleService, weatherService });
+
+    // When
+    const result = bicycleWeatherComposerService.getCityWeather('Bixi');
+
+    // Then
+    expect(result).toEqual(undefined);
+    expect(bicycleService.findLocationOf).toHaveBeenCalled();
+    expect(bicycleService.findLocationOf).toHaveBeenCalledWith('Bixi');
+
+    expect(weatherService.findConditionOf).toHaveBeenCalled();
+    expect(weatherService.findConditionOf).toHaveBeenCalledWith('Montréal, QC');
+  });
+
   test('it should return location weather details when company is known', () => {
     // Given
     const location = {
@@ -64,11 +90,9 @@ describe('BicycleWeatherCompoerService', () => {
     // Then
     expect(result).toEqual(expectedResult);
     expect(bicycleService.findLocationOf).toHaveBeenCalled();
-    expect(bicycleService.findLocationOf).toHaveBeenCalledTimes(1);
     expect(bicycleService.findLocationOf).toHaveBeenCalledWith('Bixi');
 
     expect(weatherService.findConditionOf).toHaveBeenCalled();
-    expect(weatherService.findConditionOf).toHaveBeenCalledTimes(1);
     expect(weatherService.findConditionOf).toHaveBeenCalledWith('Montréal, QC');
   });
 });
