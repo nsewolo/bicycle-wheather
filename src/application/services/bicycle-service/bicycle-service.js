@@ -22,17 +22,18 @@ export class BicycleService {
       console.log(`Invalid response received from '${url}'`);
       return undefined;
     }
+
     const networks = response['networks'];
     if ( !networks ) {
-      console.log(`Invalid response received from '${url}' missing 'networks' field`);
+      console.log(`Invalid response received from '${url}' missing property 'networks'`);
     }
-    for (const network of networks) {
-      const cmp = network['name'];
-      if (cmp === company) {
-        console.info(`Returned a valid city: ${cmp}`);
-        return cmp;
-      }
-    }
+    // for (const network of networks) {
+    //   const cmp = network['name'];
+    //   if (cmp === company) {
+    //     console.info(`Returned a valid city: ${cmp}`);
+    //     return cmp;
+    //   }
+    // }
     console.debug(`No valid response received from tier api`);
 
     return undefined;

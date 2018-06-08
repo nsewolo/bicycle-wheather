@@ -4,7 +4,7 @@ import { BicycleWeatherComposer } from './bicycle-weather-composer';
 
 describe('BicycleWeatherCompoerService', () => {
   const options = {
-    bicycleService: new BicycleService(),
+    bicycleService: new BicycleService({}),
     weatherService: new WeatherService()
   };
   const bicycleWeatherComposerService = new BicycleWeatherComposer(options);
@@ -41,8 +41,11 @@ describe('BicycleWeatherCompoerService', () => {
       "latitude": 45.508693,
       "longitude": -73.553928
     };
-    const bicycleService = new BicycleService();
+    const httpService = {};
+    httpService.get = jest.fn(() => undefined);
+    const bicycleService = new BicycleService({httpService});
     const weatherService = new WeatherService();
+
     bicycleService.findLocationOf = jest.fn(() => location);
     weatherService.findConditionOf = jest.fn(() => undefined);
     const bicycleWeatherComposerService = new BicycleWeatherComposer({ bicycleService, weatherService });
@@ -78,7 +81,9 @@ describe('BicycleWeatherCompoerService', () => {
       "location": location,
       "condition": condition
     };
-    const bicycleService = new BicycleService();
+    const httpService = {};
+    httpService.get = jest.fn(() => undefined);
+    const bicycleService = new BicycleService({httpService});
     const weatherService = new WeatherService();
     bicycleService.findLocationOf = jest.fn(() => location);
     weatherService.findConditionOf = jest.fn(() => condition);
