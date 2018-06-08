@@ -1,15 +1,15 @@
 {
   "name": "bicycle-wheather",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Compose weather and city informatin for Bicycle company",
+  "main": "starter.js",
   "scripts": {
     "test": "jest",
     "build": "rimraf dist/ && babel ./ --out-dir dist/ --ignore ./node_modules,./.babelrc,./package.json,./npm-debug.log,/**/*.spec.js --copy-files",
-    "start": "npm run build && node dist/index.js"
+    "start": "npm run build && node dist/starter.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "dooley.nsewolo",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.18.3",
