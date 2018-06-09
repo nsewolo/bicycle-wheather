@@ -1,1 +1,1 @@
-export * from './bicycle-weather-composer';
+export * from './composer-service';

@@ -1,8 +1,12 @@
-import axios from 'axios';
+import { HttpInterface } from '../http-interface';
 
-export class WeatherService {
+export class WeatherService extends HttpInterface {
 
-  findConditionOf(city) {
+  constructor({httpService}) {
+    super({ httpService });
+  }
+
+  findConditionOf( city ) {
     return undefined;
   }
 }

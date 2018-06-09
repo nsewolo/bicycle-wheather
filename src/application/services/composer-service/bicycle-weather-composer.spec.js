@@ -1,11 +1,11 @@
-import { BicycleService } from './bicycle-service/bicycle-service';
-import { WeatherService } from './weather-service/weather-service';
+import { BicycleService } from '../bicycle-service/bicycle-service';
+import { WeatherService } from '../weather-service/weather-service';
 import { BicycleWeatherComposer } from './bicycle-weather-composer';
 
 describe('BicycleWeatherComponentService', () => {
   const options = {
     bicycleService: new BicycleService({}),
-    weatherService: new WeatherService()
+    weatherService: new WeatherService({})
   };
   const bicycleWeatherComposerService = new BicycleWeatherComposer(options);
 
@@ -38,7 +38,7 @@ describe('BicycleWeatherComponentService', () => {
     const httpService = {};
     httpService.get = jest.fn(() => undefined);
     const bicycleService = new BicycleService({httpService});
-    const weatherService = new WeatherService();
+    const weatherService = new WeatherService({httpService});
 
     bicycleService.findLocationOf = jest.fn(() => undefined);
     weatherService.findConditionOf = jest.fn(() => undefined);
@@ -66,7 +66,7 @@ describe('BicycleWeatherComponentService', () => {
     const httpService = {};
     httpService.get = jest.fn(() => undefined);
     const bicycleService = new BicycleService({httpService});
-    const weatherService = new WeatherService();
+    const weatherService = new WeatherService({httpService});
 
     bicycleService.findLocationOf = jest.fn(() => location);
     weatherService.findConditionOf = jest.fn(() => undefined);
@@ -106,7 +106,7 @@ describe('BicycleWeatherComponentService', () => {
     const httpService = {};
     httpService.get = jest.fn(() => undefined);
     const bicycleService = new BicycleService({httpService});
-    const weatherService = new WeatherService();
+    const weatherService = new WeatherService({httpService});
     bicycleService.findLocationOf = jest.fn(() => location);
     weatherService.findConditionOf = jest.fn(() => condition);
     const bicycleWeatherComposerService = new BicycleWeatherComposer({ bicycleService, weatherService });

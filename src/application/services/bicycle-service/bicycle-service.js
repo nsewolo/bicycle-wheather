@@ -1,9 +1,9 @@
-import axios from 'axios';
+import { HttpInterface } from '../http-interface';
 
-export class BicycleService {
+export class BicycleService extends HttpInterface {
 
-  constructor({httpService = axios}) {
-    this.httpService = httpService;
+  constructor({httpService}) {
+    super({ httpService });
   }
 
   findLocationOf(company) {

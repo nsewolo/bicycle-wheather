@@ -1,11 +1,11 @@
-import { BicycleService } from './bicycle-service';
-import { WeatherService } from './weather-service';
+import { BicycleService } from '../bicycle-service/index';
+import { WeatherService } from '../weather-service/index';
 
 export class BicycleWeatherComposer {
 
   constructor({
                 bicycleService = new BicycleService({}),
-                weatherService = new WeatherService()}) {
+                weatherService = new WeatherService({}) }) {
 
     this.bicycleService = bicycleService;
     this.weatherService = weatherService;
