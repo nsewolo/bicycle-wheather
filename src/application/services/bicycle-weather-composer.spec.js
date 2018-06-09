@@ -33,6 +33,28 @@ describe('BicycleWeatherComponentService', () => {
     expect(details).toEqual(undefined);
   });
 
+  test('it should return undefined when location was not found', () => {
+    // Given
+    const httpService = {};
+    httpService.get = jest.fn(() => undefined);
+    const bicycleService = new BicycleService({httpService});
+    const weatherService = new WeatherService();
+
+    bicycleService.findLocationOf = jest.fn(() => undefined);
+    weatherService.findConditionOf = jest.fn(() => undefined);
+    const bicycleWeatherComposerService = new BicycleWeatherComposer({ bicycleService, weatherService });
+
+    // When
+    const result = bicycleWeatherComposerService.getCityWeather('unknown-company');
+
+    // Then
+    expect(result).toEqual(undefined);
+    expect(bicycleService.findLocationOf).toHaveBeenCalled();
+    expect(bicycleService.findLocationOf).toHaveBeenCalledWith('unknown-company');
+
+    expect(weatherService.findConditionOf).toHaveBeenCalledTimes(0);
+  });
+
   test('it should return undefined when weather condition is undefined', () => {
     // Given
     const location = {

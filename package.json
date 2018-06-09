@@ -5,7 +5,7 @@
   "main": "src/starter.js",
   "scripts": {
     "test": "jest",
-    "build": "rimraf dist/ && babel ./ --out-dir dist/ --ignore ./node_modules,./.babelrc,./package.json,./npm-debug.log,/**/*.spec.js --copy-files",
+    "build": "rimraf dist/ && babel ./ --out-dir dist/ --ignore ./node_modules,./.babelrc,./package.json,./npm-debug.log,/**/*.spec.js,/yarn --copy-files",
     "start": "npm run build && node dist/src/starter.js",
     "debug": "npm run build && node %NODE_DEBUG_OPTION% dist/src/starter.js"
   },
