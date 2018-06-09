@@ -1,6 +1,7 @@
 import axios from 'axios';
-import JSON_DATA from '../../data/networks';
 import { BicycleService } from './bicycle-service';
+import validNetworkResponse from '../../data/valid-networks-response';
+import invalidNetworkResponse from '../../data/invalid-networks-reponse';
 
 describe('BicycleService', () => {
 
@@ -44,6 +45,21 @@ describe('BicycleService', () => {
       expect(httpService.get).toHaveBeenCalledWith('http://api.citybik.es/v2/networks');
     });
 
+    test('it should return undefined when received invalid response from networks api', async () => {
+      // Given
+      const httpService = {};
+      httpService.get = jest.fn(() => invalidNetworkResponse);
+      const mockedService = new BicycleService({httpService});
+
+      // When
+      const location = await mockedService.findLocationOf('any-value');
+
+      // Then
+      expect(location).toEqual(undefined);
+      expect(httpService.get).toHaveBeenCalled();
+      expect(httpService.get).toHaveBeenCalledWith('http://api.citybik.es/v2/networks');
+    });
+
     test('it should return city details', async () => {
       // Given
       const expectation = {
@@ -53,7 +69,7 @@ describe('BicycleService', () => {
         "longitude": -73.553928
       };
       const httpService = {};
-      httpService.get = jest.fn(() => JSON_DATA);
+      httpService.get = jest.fn(() => validNetworkResponse);
       const mockedService = new BicycleService({httpService});
 
       // When

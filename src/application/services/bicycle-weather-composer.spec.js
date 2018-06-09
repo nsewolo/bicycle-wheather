@@ -2,7 +2,7 @@ import { BicycleService } from './bicycle-service/bicycle-service';
 import { WeatherService } from './weather-service/weather-service';
 import { BicycleWeatherComposer } from './bicycle-weather-composer';
 
-describe('BicycleWeatherCompoerService', () => {
+describe('BicycleWeatherComponentService', () => {
   const options = {
     bicycleService: new BicycleService({}),
     weatherService: new WeatherService()

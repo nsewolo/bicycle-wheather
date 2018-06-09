@@ -31,10 +31,10 @@ export class BicycleWeatherComposer {
           "condition": condition
         };
       }
-      console.log(`Company '${company}' is not known in bicycle networks`);
+      console.log(`City '${city}' is unknown from weather system`);
       return undefined;
     }
-    console.log(`Company '${company}' is not known in bicycle networks`);
+    console.log(`Location '${location}' is unknown from bicycle networks`);
     return location;
   }
 }

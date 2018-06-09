@@ -18,18 +18,18 @@ export class RestApi {
       const id = req.params['id'];
 
       if ( id ) {
-        console.log(`Calling path: ', ${req.route.path}`);
-
         const details = this.composerService.getCityWeather(id);
         res
           .status(200)
           .send(details);
 
-        console.log('Response from api:', details);
+        console.log('Response from api was :', details);
       } else {
         res
-          .status(400)
-          .send({});
+          .status(422)
+          .send(new Error(`Bad parameter request sent. Provided value: ${id}`));
+
+        console.log(`Bad parameter request sent. Provided value: ${id}`);
       }
     });
 
