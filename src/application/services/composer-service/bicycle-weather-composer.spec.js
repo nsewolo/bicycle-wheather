@@ -12,25 +12,25 @@ describe('BicycleWeatherComponentService', () => {
   test('it should return undefined when company is empty', () => {
     const details = bicycleWeatherComposerService.getCityWeather('');
 
-    expect(details).toEqual(undefined);
+    expect(details).toBeUndefined();
   });
 
   test('it should return undefined when company is null', () => {
     const details = bicycleWeatherComposerService.getCityWeather(null);
 
-    expect(details).toEqual(undefined);
+    expect(details).toBeUndefined();
   });
 
   test('it should return undefined when company is undefined', () => {
     const details = bicycleWeatherComposerService.getCityWeather(undefined);
 
-    expect(details).toEqual(undefined);
+    expect(details).toBeUndefined();
   });
 
   test('it should return undefined when company is unknown', () => {
     const details = bicycleWeatherComposerService.getCityWeather('unknown-company');
 
-    expect(details).toEqual(undefined);
+    expect(details).toBeUndefined();
   });
 
   test('it should return undefined when location was not found', () => {
@@ -48,7 +48,7 @@ describe('BicycleWeatherComponentService', () => {
     const result = bicycleWeatherComposerService.getCityWeather('unknown-company');
 
     // Then
-    expect(result).toEqual(undefined);
+    expect(result).toBeUndefined();
     expect(bicycleService.findLocationOf).toHaveBeenCalled();
     expect(bicycleService.findLocationOf).toHaveBeenCalledWith('unknown-company');
 
@@ -76,7 +76,7 @@ describe('BicycleWeatherComponentService', () => {
     const result = bicycleWeatherComposerService.getCityWeather('Bixi');
 
     // Then
-    expect(result).toEqual(undefined);
+    expect(result).toBeUndefined();
     expect(bicycleService.findLocationOf).toHaveBeenCalled();
     expect(bicycleService.findLocationOf).toHaveBeenCalledWith('Bixi');
 

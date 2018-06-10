@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { BicycleService } from './bicycle-service';
-import validNetworkResponse from '../../data/valid-networks-response';
-import invalidNetworkResponse from '../../data/invalid-networks-reponse';
+import validNetworkResponse from '../../data/networks-valid-response';
+import invalidNetworkResponse from '../../data/networks-invalid-reponse';
 
 describe('BicycleService', () => {
 
@@ -13,21 +13,21 @@ describe('BicycleService', () => {
       expect.assertions(1);
       const city = await bicycleService.findLocationOf('');
 
-      expect(city).toEqual(undefined);
+      expect(city).toBeUndefined();
     });
 
     test('it should return undefined when company is null', async () => {
       expect.assertions(1);
       const city = await bicycleService.findLocationOf(null);
 
-      expect(city).toEqual(undefined);
+      expect(city).toBeUndefined();
     });
 
     test('it should return undefined when company is undefined', async () => {
       expect.assertions(1);
       const city = await bicycleService.findLocationOf(undefined);
 
-      expect(city).toEqual(undefined);
+      expect(city).toBeUndefined();
     });
 
     test('it should return undefined when the requested company is unknown', async () => {
@@ -40,7 +40,7 @@ describe('BicycleService', () => {
       const location = await mockedService.findLocationOf('unknown-company');
 
       // Then
-      expect(location).toEqual(undefined);
+      expect(location).toBeUndefined();
       expect(httpService.get).toHaveBeenCalled();
       expect(httpService.get).toHaveBeenCalledWith('http://api.citybik.es/v2/networks');
     });
@@ -55,7 +55,7 @@ describe('BicycleService', () => {
       const location = await mockedService.findLocationOf('any-value');
 
       // Then
-      expect(location).toEqual(undefined);
+      expect(location).toBeUndefined();
       expect(httpService.get).toHaveBeenCalled();
       expect(httpService.get).toHaveBeenCalledWith('http://api.citybik.es/v2/networks');
     });
