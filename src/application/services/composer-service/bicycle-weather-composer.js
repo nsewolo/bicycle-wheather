@@ -3,8 +3,7 @@ import {WeatherService} from '../weather-service/index';
 
 export class BicycleWeatherComposer {
 
-  constructor({
-                bicycleService = new BicycleService({}),
+  constructor({ bicycleService = new BicycleService({}),
                 weatherService = new WeatherService({}) }) {
 
     this.bicycleService = bicycleService;

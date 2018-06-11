@@ -1,9 +1,9 @@
-import {HttpInterface} from '../http-interface';
+import { HttpInterface } from '../http-interface';
 
 export class WeatherService extends HttpInterface {
 
-  constructor({httpService}) {
-    super({httpService});
+  constructor({ httpService }) {
+    super({ httpService });
   }
 
   async findConditionOf(city) {
@@ -17,9 +17,7 @@ export class WeatherService extends HttpInterface {
   // private methods
   async _getConditionOf(city) {
 
-    const response = await this.httpService
-      .get(this._buildQuery(city))
-      .catch(error => console.log(error));
+    const response = await this.httpService.get(this._buildQuery(city));
 
     const condition = await this._extractCondition(response);
 

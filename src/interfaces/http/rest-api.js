@@ -2,12 +2,12 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import { BicycleWeatherComposer } from '../../application';
 
-const HTTP_PORT = 3000;
 const app = express();
 
 export class RestApi {
 
-  constructor() {
+  constructor({HTTP_PORT = 3000}) {
+    this.port = HTTP_PORT;
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({extended: true}));
     this.composerService = new BicycleWeatherComposer({});
@@ -47,8 +47,12 @@ export class RestApi {
         .send('Health status');
     });
 
-    app.listen(HTTP_PORT);
+    app.listen(this.port);
 
-    console.log(`Started RESTful API server on: ${HTTP_PORT} ...`);
+    console.log(`Started RESTful API server on: ${this.port} ...`);
+  }
+
+  getApp() {
+    return app;
   }
 }
