@@ -13,15 +13,22 @@ export class RestApi {
     this.composerService = new BicycleWeatherComposer({});
   }
 
-  start() {
-    app.get('/company/:id', (req, res) => {
+  async start() {
+    app.get('/company/:id', async (req, res) => {
       const id = req.params['id'];
 
       if ( id ) {
-        const details = this.composerService.getCityWeather(id);
-        res
-          .status(200)
-          .send(details);
+        const details = await this.composerService.getCityWeather(id);
+
+        if ( details ) {
+          res
+            .status(200)
+            .send(details);
+        } else {
+          res
+            .status(400)
+            .send(new Error(`Bad request sent.`));
+        }
 
         console.log('Response from api was :', details);
       } else {

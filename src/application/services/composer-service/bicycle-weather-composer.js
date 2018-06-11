@@ -11,19 +11,19 @@ export class BicycleWeatherComposer {
     this.weatherService = weatherService;
   }
 
-  getCityWeather(company) {
+  async getCityWeather(company) {
     if ( !company ) {
       return undefined;
     }
-    return this._getCityWeatherDetails(company);
+    return await this._getCityWeatherDetails(company);
   }
 
   // private methods
-  _getCityWeatherDetails(company) {
-    const location = this.bicycleService.findLocationOf(company);
+  async _getCityWeatherDetails(company) {
+    const location = await this.bicycleService.findLocationOf(company);
     if ( location ){
       const city = location['city'];
-      const condition = this.weatherService.findConditionOf(city);
+      const condition = await this.weatherService.findConditionOf(city);
       if ( condition ) {
         return {
           "name": company,

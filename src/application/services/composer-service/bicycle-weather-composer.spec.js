@@ -9,31 +9,31 @@ describe('BicycleWeatherComponentService', () => {
   };
   const bicycleWeatherComposerService = new BicycleWeatherComposer(options);
 
-  test('it should return undefined when company is empty', () => {
-    const details = bicycleWeatherComposerService.getCityWeather('');
+  test('it should return undefined when company is empty', async () => {
+    const details = await bicycleWeatherComposerService.getCityWeather('');
 
     expect(details).toBeUndefined();
   });
 
-  test('it should return undefined when company is null', () => {
-    const details = bicycleWeatherComposerService.getCityWeather(null);
+  test('it should return undefined when company is null', async () => {
+    const details = await bicycleWeatherComposerService.getCityWeather(null);
 
     expect(details).toBeUndefined();
   });
 
-  test('it should return undefined when company is undefined', () => {
-    const details = bicycleWeatherComposerService.getCityWeather(undefined);
+  test('it should return undefined when company is undefined', async () => {
+    const details = await bicycleWeatherComposerService.getCityWeather(undefined);
 
     expect(details).toBeUndefined();
   });
 
-  test('it should return undefined when company is unknown', () => {
-    const details = bicycleWeatherComposerService.getCityWeather('unknown-company');
+  test('it should return undefined when company is unknown', async () => {
+    const details = await bicycleWeatherComposerService.getCityWeather('unknown-company');
 
     expect(details).toBeUndefined();
   });
 
-  test('it should return undefined when location was not found', () => {
+  test('it should return undefined when location was not found', async () => {
     // Given
     const httpService = {};
     httpService.get = jest.fn(() => undefined);
@@ -45,7 +45,7 @@ describe('BicycleWeatherComponentService', () => {
     const bicycleWeatherComposerService = new BicycleWeatherComposer({ bicycleService, weatherService });
 
     // When
-    const result = bicycleWeatherComposerService.getCityWeather('unknown-company');
+    const result = await bicycleWeatherComposerService.getCityWeather('unknown-company');
 
     // Then
     expect(result).toBeUndefined();
@@ -55,7 +55,7 @@ describe('BicycleWeatherComponentService', () => {
     expect(weatherService.findConditionOf).toHaveBeenCalledTimes(0);
   });
 
-  test('it should return undefined when weather condition is undefined', () => {
+  test('it should return undefined when weather condition is undefined', async () => {
     // Given
     const location = {
       "city": "Montréal, QC",
@@ -73,7 +73,7 @@ describe('BicycleWeatherComponentService', () => {
     const bicycleWeatherComposerService = new BicycleWeatherComposer({ bicycleService, weatherService });
 
     // When
-    const result = bicycleWeatherComposerService.getCityWeather('Bixi');
+    const result = await bicycleWeatherComposerService.getCityWeather('Bixi');
 
     // Then
     expect(result).toBeUndefined();
@@ -84,7 +84,7 @@ describe('BicycleWeatherComponentService', () => {
     expect(weatherService.findConditionOf).toHaveBeenCalledWith('Montréal, QC');
   });
 
-  test('it should return location weather details when company is known', () => {
+  test('it should return location weather details when company is known', async () => {
     // Given
     const location = {
       "city": "Montréal, QC",
@@ -112,7 +112,7 @@ describe('BicycleWeatherComponentService', () => {
     const bicycleWeatherComposerService = new BicycleWeatherComposer({ bicycleService, weatherService });
 
     // When
-    const result = bicycleWeatherComposerService.getCityWeather('Bixi');
+    const result = await bicycleWeatherComposerService.getCityWeather('Bixi');
 
     // Then
     expect(result).toEqual(expectedResult);
