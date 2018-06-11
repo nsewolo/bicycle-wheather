@@ -47,7 +47,7 @@ describe('WeatherService', () => {
     const mockedService = new WeatherService({httpService});
 
     // When
-    const city = 'Montréal';
+    const city = 'Montréal, QC';
     const location = await mockedService.findConditionOf(city);
 
     // Then
@@ -70,7 +70,7 @@ describe('WeatherService', () => {
     const mockedService = new WeatherService({httpService});
 
     // When
-    const city = 'Montréal';
+    const city = 'Montréal, QC';
     const result = await mockedService.findConditionOf(city);
 
     // Then

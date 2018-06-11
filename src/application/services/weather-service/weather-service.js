@@ -7,7 +7,8 @@ export class WeatherService extends HttpInterface {
   }
 
   async findConditionOf(city) {
-    if (!city) {
+    if ( !city ) {
+      console.log(`Find condition invalid city received: '${city}'`);
       return undefined;
     }
     return await this._getConditionOf(city);
@@ -15,27 +16,34 @@ export class WeatherService extends HttpInterface {
 
   // private methods
   async _getConditionOf(city) {
-    const urlQuery = WeatherService._buildQuery(city);
-    const response = await this.httpService.get(urlQuery);
-    const condition = await this._extractConditionFrom(response);
+
+    const response = await this.httpService
+      .get(this._buildQuery(city))
+      .catch(error => console.log(error));
+
+    const condition = await this._extractCondition(response);
 
     if ( !condition ) {
-      console.log(`Unable to find condition, invalid response from api received: '${condition}'`);
+      console.log(`City '${city}' is unknown from weather system, received: '${condition}'`);
       return undefined;
+    } else {
+      console.log(`City '${city}' found in weather system.`);
+      delete condition['code'];
+
+      return {"condition": condition};
     }
-    delete condition['code'];
-    return {"condition": condition};
   }
 
-  static _buildQuery(city) {
-    return `https://query.yahooapis.com/v1/public/yql?q=select * from weather.forecast where woeid in (select woeid from geo.places(1) where text="${city}")&format=json&env=store://datatables.org/alltableswithkeys`;
-  }
-
-  async _extractConditionFrom(response) {
+  _extractCondition(response) {
     try {
       return response['data']['query']['results']['channel']['item']['condition'];
     } catch (error) {
+      console.log(`Unable to parse response received from 'Weather-Api'`, error);
       return undefined;
     }
+  }
+
+  _buildQuery(city) {
+    return `https://query.yahooapis.com/v1/public/yql?q=select * from weather.forecast where woeid in (select woeid from geo.places(1) where text="${city}")&format=json&env=store://datatables.org/alltableswithkeys`;
   }
 }

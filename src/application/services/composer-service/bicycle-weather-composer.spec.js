@@ -55,13 +55,23 @@ describe('BicycleWeatherComponentService', () => {
     expect(weatherService.findConditionOf).toHaveBeenCalledTimes(0);
   });
 
-  test('it should return undefined when weather condition is undefined', async () => {
+  test('it should return details with empty condition property when weather condition is undefined', async () => {
     // Given
     const location = {
       "city": "Montréal, QC",
       "country": "CA",
       "latitude": 45.508693,
       "longitude": -73.553928
+    };
+    const expected = {
+      "name": "Bixi",
+      "condition": {},
+      "location": {
+        "city": "Montréal, QC",
+        "country": "CA",
+        "latitude": 45.508693,
+        "longitude": -73.553928
+      }
     };
     const httpService = {};
     httpService.get = jest.fn(() => undefined);
@@ -76,7 +86,7 @@ describe('BicycleWeatherComponentService', () => {
     const result = await bicycleWeatherComposerService.getCityWeather('Bixi');
 
     // Then
-    expect(result).toBeUndefined();
+    expect(result).toEqual(expected);
     expect(bicycleService.findLocationOf).toHaveBeenCalled();
     expect(bicycleService.findLocationOf).toHaveBeenCalledWith('Bixi');
 
