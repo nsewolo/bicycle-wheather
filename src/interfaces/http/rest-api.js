@@ -2,19 +2,18 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import { BicycleWeatherComposer } from '../../application';
 
-const app = express();
-
 export class RestApi {
 
   constructor({HTTP_PORT = 3000}) {
     this.port = HTTP_PORT;
-    app.use(bodyParser.json());
-    app.use(bodyParser.urlencoded({extended: true}));
+    this.app = express();
+    this.app.use(bodyParser.json());
+    this.app.use(bodyParser.urlencoded({extended: true}));
     this.composerService = new BicycleWeatherComposer({});
   }
 
   async start() {
-    app.get('/company/:id', async (req, res) => {
+    this.app.get('/company/:id', async (req, res) => {
       const id = req.params['id'];
 
       if ( id ) {
@@ -40,19 +39,19 @@ export class RestApi {
       }
     });
 
-    app.get('/health', (req, res) => {
+    this.app.get('/health', (req, res) => {
       console.log('Calling path: ', req.route.path);
       res
         .status(200)
         .send('Health status');
     });
 
-    app.listen(this.port);
+    this.app.listen(this.port);
 
     console.log(`Started RESTful API server on: ${this.port} ...`);
   }
 
   getApp() {
-    return app;
+    return this.app;
   }
 }
