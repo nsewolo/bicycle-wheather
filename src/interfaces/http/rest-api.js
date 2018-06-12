@@ -43,7 +43,7 @@ export class RestApi {
       console.log('Calling path: ', req.route.path);
       res
         .status(200)
-        .send('Health status');
+        .send({"health": "UP"});
     });
 
     this.app.listen(this.port);
