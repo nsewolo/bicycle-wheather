@@ -28,7 +28,9 @@ describe('BicycleWeather REST Api- Integration testing', () => {
       }
     };
     const parsedResponse = JSON.parse(response.text);
-    expect(parsedResponse).toEqual(expected);
+    expect(parsedResponse.name).toEqual(expected.name);
+    expect(parsedResponse.location).toEqual(expected.location);
+    expect(parsedResponse.condition).toBeDefined();
     expect(response.statusCode).toEqual(200);
   });
 

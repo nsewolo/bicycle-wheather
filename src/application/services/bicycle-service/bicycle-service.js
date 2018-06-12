@@ -17,7 +17,7 @@ export class BicycleService extends HttpInterface {
   // private methods
   async _getLocationOfCompany(company) {
     const url = 'http://api.citybik.es/v2/networks';
-    const response = await this.httpService.get(url);
+    const response = await this.fetch(url);
 
     if ( !response || !response['data'] ) {
       console.log(`Invalid response received from '${url}'`);
@@ -25,6 +25,7 @@ export class BicycleService extends HttpInterface {
     }
     const networks = response['data']['networks'];
     if ( networks ) {
+      //TODO: use functional style instead
       for (const network of networks) {
         if (network['name'] === company) {
           const location = network['location'];

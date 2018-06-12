@@ -17,7 +17,7 @@ export class WeatherService extends HttpInterface {
   // private methods
   async _getConditionOf(city) {
 
-    const response = await this.httpService.get(this._buildQuery(city));
+    const response = await this.fetch(this._buildQuery(city));
 
     const condition = await this._extractCondition(response);
 
