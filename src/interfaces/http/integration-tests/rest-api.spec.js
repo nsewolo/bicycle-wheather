@@ -1,7 +1,7 @@
 import {RestApi} from '../rest-api';
 import request from 'supertest';
 
-describe('BicycleWeather REST Api- Integration testing', () => {
+describe('Integration testing', () => {
 
   // Setup Rest server
   const restApi = new RestApi({HTTP_PORT: 3001});
