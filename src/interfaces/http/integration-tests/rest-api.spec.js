@@ -4,7 +4,7 @@ import request from 'supertest';
 describe('Integration testing', () => {
 
   // Setup Rest server
-  const restApi = new RestApi({HTTP_PORT: 3001});
+  const restApi = new RestApi({port: 3001});
   restApi.start();
 
   afterAll(() => {

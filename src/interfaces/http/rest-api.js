@@ -4,8 +4,8 @@ import { BicycleWeatherComposer } from '../../application';
 
 export class RestApi {
 
-  constructor({HTTP_PORT = 3000}) {
-    this.port = HTTP_PORT;
+  constructor({port = 3000}) {
+    this.port = port;
     this.app = express();
     this.app.use(bodyParser.json());
     this.app.use(bodyParser.urlencoded({extended: true}));
