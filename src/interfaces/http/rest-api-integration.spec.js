@@ -1,4 +1,4 @@
-import {RestApi} from '../rest-api';
+import { RestApi } from './rest-api';
 import request from 'supertest';
 
 describe('Integration testing', () => {
