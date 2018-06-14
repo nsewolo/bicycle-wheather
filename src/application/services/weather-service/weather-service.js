@@ -2,13 +2,14 @@ import { HttpInterface } from '../http-interface';
 
 export class WeatherService extends HttpInterface {
 
-  constructor({ httpService }) {
+  constructor({ logger, httpService }) {
     super({ httpService });
+    this.log = logger;
   }
 
   async findConditionOf(city) {
     if ( !city ) {
-      console.log(`Find condition invalid city received: '${city}'`);
+      this.log.info(`Find condition invalid city received: '${city}'`);
       return undefined;
     }
     return await this._getConditionOf(city);
@@ -16,16 +17,14 @@ export class WeatherService extends HttpInterface {
 
   // private methods
   async _getConditionOf(city) {
-
     const response = await this.fetch(this._buildQuery(city));
-
     const condition = await this._extractCondition(response);
 
     if ( !condition ) {
-      console.log(`City '${city}' is unknown from weather system, received: '${condition}'`);
+      this.log.info(`City '${city}' is unknown from weather system, received: '${condition}'`);
       return undefined;
     } else {
-      console.log(`City '${city}' found in weather system.`);
+      this.log.info(`City '${city}' found in weather system.`);
       delete condition['code'];
 
       return {"condition": condition};
@@ -36,7 +35,7 @@ export class WeatherService extends HttpInterface {
     try {
       return response['data']['query']['results']['channel']['item']['condition'];
     } catch (error) {
-      console.log(`Unable to parse response received from 'Weather-Api'`, error);
+      this.log.error(`Unable to parse response received from 'Weather-Api'`, error);
       return undefined;
     }
   }

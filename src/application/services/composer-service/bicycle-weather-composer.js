@@ -1,13 +1,14 @@
-import {BicycleService} from '../bicycle-service/index';
-import {WeatherService} from '../weather-service/index';
+import { BicycleService } from '../bicycle-service/index';
+import { WeatherService } from '../weather-service/index';
 
 export class BicycleWeatherComposer {
 
-  constructor({ bicycleService = new BicycleService({}),
-                weatherService = new WeatherService({}) }) {
+  constructor({ logger, bicycleService = new BicycleService({logger}),
+                weatherService = new WeatherService({logger}) }) {
 
     this.bicycleService = bicycleService;
     this.weatherService = weatherService;
+    this.logger = logger;
   }
 
   async getCityWeather(company) {
@@ -28,7 +29,7 @@ export class BicycleWeatherComposer {
         "condition": condition ? condition: {}
       };
     }
-    console.log(`Location '${location}' is unknown from bicycle networks`);
+    this.logger.debug(`Location '${location}' is unknown from bicycle networks`);
     return location;
   }
 }

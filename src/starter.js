@@ -1,10 +1,17 @@
-import { RestApi } from './interfaces';
+import cors from 'cors';
+import compression from 'compression';
 
-/**
- * Start the Rest API
- */
-new RestApi({})
+import { RestApi } from './interfaces';
+import { logger  } from './infrastructure';
+
+const options = {
+  logger,
+  cors,
+  compression
+};
+
+new RestApi(options)
   .start()
   .catch((error) => {
-    console.log(`Error during rest api execution: `, error);
+    options.logger.log(`Error during rest api execution: `, error);
 });

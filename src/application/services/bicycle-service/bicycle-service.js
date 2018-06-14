@@ -2,13 +2,14 @@ import { HttpInterface } from '../http-interface';
 
 export class BicycleService extends HttpInterface {
 
-  constructor({httpService}) {
+  constructor({logger, httpService}) {
     super({ httpService });
+    this.log = logger;
   }
 
   findLocationOf(company) {
     if ( !company ) {
-      console.log(`Company invalid argument received '${company}'`);
+      this.log.debug(`Company invalid argument received '${company}'`);
       return undefined;
     }
     return this._getLocationOfCompany(company);
@@ -20,7 +21,7 @@ export class BicycleService extends HttpInterface {
     const response = await this.fetch(url);
 
     if ( !response || !response['data'] ) {
-      console.log(`Invalid response received from '${url}'`);
+      this.log.error(`Invalid response received from '${url}'`);
       return undefined;
     }
     const networks = response['data']['networks'];
@@ -29,12 +30,12 @@ export class BicycleService extends HttpInterface {
       for (const network of networks) {
         if (network['name'] === company) {
           const location = network['location'];
-          console.log('Found location: ', location);
+          this.log.debug('Found location: ', location);
           return location;
         }
       }
     }
-    console.log(`Invalid response received from '${url}' missing property 'networks'`);
+    this.log.error(`Invalid response received from '${url}' missing property 'networks'`);
     return undefined;
   }
 }

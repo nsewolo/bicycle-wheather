@@ -1,8 +1,9 @@
 export class Router {
 
-  constructor({router, composerService}) {
+  constructor({logger, router, composerService}) {
     this.router = router;
     this.composerService = composerService;
+    this.log = logger;
 
     this._registerRoutes();
   }
@@ -13,16 +14,15 @@ export class Router {
 
   // private methods
   _registerRoutes() {
-    this.router.use(function timeLog(req, res, next) {
-      console.log('Time: ', Date.now());
-      next()
+    this.router.use((req, res, next) => {
+      this.log.info('Time: ', new Date().toString());
+      next();
     });
 
     this.router.get('/company/:id', async (req, res) => {
       const id = req.params['id'];
       if (id) {
         const details = await this.composerService.getCityWeather(id);
-
         if (details) {
           res
             .status(200)
@@ -32,19 +32,17 @@ export class Router {
             .status(400)
             .send(new Error(`Bad request sent.`));
         }
-
-        console.log('Response from api was :', details);
+        this.log.info('Response from api was :', details);
       } else {
         res
           .status(422)
           .send(new Error(`Bad parameter request sent. Provided value: ${id}`));
-
-        console.log(`Bad parameter request sent. Provided value: ${id}`);
+        this.log.error(`Bad parameter request sent. Provided value: ${id}`);
       }
     });
 
     this.router.get('/health', (req, res) => {
-      console.log('Calling path: ', req.route.path);
+      this.log.info(`Calling path: ${req.route["path"]}`);
       res
         .status(200)
         .send({"health": "UP"});
