@@ -1,11 +1,11 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 
-import { Router } from './router';
+import { Router } from '../router';
 import { corsOptions } from '../config';
 import { BicycleWeatherComposer } from '../../../application';
 
-export class RestApi {
+export class RestApiServer {
 
   constructor({port = 3000, logger, cors, compression}) {
     this.port = port;

@@ -1,8 +1,8 @@
 import cors from 'cors';
 import compression from 'compression';
 
-import { RestApi } from './interfaces';
 import { logger  } from './infrastructure';
+import { RestApiServer } from './interfaces';
 
 const options = {
   logger,
@@ -10,7 +10,7 @@ const options = {
   compression
 };
 
-new RestApi(options)
+new RestApiServer(options)
   .start()
   .catch((error) => {
     options.logger.log(`Error during rest api execution: `, error);

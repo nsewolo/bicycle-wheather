@@ -2,7 +2,7 @@ import cors from 'cors';
 import request from 'supertest';
 import compression from 'compression';
 
-import { RestApi } from './rest-api';
+import { RestApiServer } from './rest-api-server';
 
 describe('Integration testing', () => {
   const logger = {
@@ -10,8 +10,8 @@ describe('Integration testing', () => {
       debug: ()=> {},
       error: ()=> {}
   };
-  // Setup Rest server
-  const restApi = new RestApi({cors, compression, logger, port: 3001});
+
+  const restApi = new RestApiServer({cors, compression, logger, port: 3001});
   restApi.start();
 
   test('It should details for a given company', async () => {

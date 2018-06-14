@@ -1,1 +1,1 @@
-export * from './graph-server';
+export * from './graphql-server';
