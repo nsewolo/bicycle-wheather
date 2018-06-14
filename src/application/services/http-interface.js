@@ -9,4 +9,8 @@ export class HttpInterface {
   async fetch(url) {
     return await this.httpService.get(url);
   }
+
+  async send(url, data, options) {
+    return await this.httpService.post(url, data, options);
+  }
 }
