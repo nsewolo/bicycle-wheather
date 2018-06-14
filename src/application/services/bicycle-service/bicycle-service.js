@@ -2,7 +2,7 @@ import { HttpInterface } from '../http-interface';
 
 export class BicycleService extends HttpInterface {
 
-  constructor({logger, httpService}) {
+  constructor({ logger, httpService }) {
     super({ httpService });
     this.log = logger;
   }
@@ -18,24 +18,27 @@ export class BicycleService extends HttpInterface {
   // private methods
   async _getLocationOfCompany(company) {
     const url = 'http://api.citybik.es/v2/networks';
-    const response = await this.fetch(url);
-
-    if ( !response || !response['data'] ) {
-      this.log.error(`Invalid response received from '${url}'`);
-      return undefined;
-    }
-    const networks = response['data']['networks'];
+    const networks = this._extractNetworks(await this.fetch(url));
     if ( networks ) {
-      //TODO: use functional style instead
-      for (const network of networks) {
-        if (network['name'] === company) {
-          const location = network['location'];
-          this.log.debug('Found location: ', location);
-          return location;
-        }
-      }
+      return this._findLocation(networks, company);
     }
     this.log.error(`Invalid response received from '${url}' missing property 'networks'`);
     return undefined;
+  }
+
+  _findLocation(networks, company) {
+    for (const network of networks) {
+      if ( network['name'] === company ) {
+        return network['location'];
+      }
+    }
+    return undefined;
+  }
+
+  _extractNetworks(data) {
+    if ( !data || !data['data'] ) {
+      return undefined;
+    }
+    return data['data']['networks'];
   }
 }

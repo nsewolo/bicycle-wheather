@@ -3,7 +3,13 @@ import { WeatherService } from '../weather-service/weather-service';
 import { BicycleWeatherComposer } from './bicycle-weather-composer';
 
 describe('BicycleWeatherComponentService', () => {
+  const logger = {
+    info: ()=> {},
+    debug: ()=> {},
+    error: ()=> {}
+  };
   const options = {
+    logger: logger,
     bicycleService: new BicycleService({}),
     weatherService: new WeatherService({})
   };
@@ -37,12 +43,12 @@ describe('BicycleWeatherComponentService', () => {
     // Given
     const httpService = {};
     httpService.get = jest.fn(() => undefined);
-    const bicycleService = new BicycleService({httpService});
-    const weatherService = new WeatherService({httpService});
+    const bicycleService = new BicycleService({logger, httpService});
+    const weatherService = new WeatherService({logger, httpService});
 
     bicycleService.findLocationOf = jest.fn(() => undefined);
     weatherService.findConditionOf = jest.fn(() => undefined);
-    const bicycleWeatherComposerService = new BicycleWeatherComposer({ bicycleService, weatherService });
+    const bicycleWeatherComposerService = new BicycleWeatherComposer({logger, bicycleService, weatherService });
 
     // When
     const result = await bicycleWeatherComposerService.getCityWeather('unknown-company');

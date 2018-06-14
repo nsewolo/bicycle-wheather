@@ -8,7 +8,7 @@ export class BicycleWeatherComposer {
 
     this.bicycleService = bicycleService;
     this.weatherService = weatherService;
-    this.logger = logger;
+    this.log = logger;
   }
 
   async getCityWeather(company) {
@@ -29,7 +29,7 @@ export class BicycleWeatherComposer {
         "condition": condition ? condition: {}
       };
     }
-    this.logger.debug(`Location '${location}' is unknown from bicycle networks`);
+    this.log.debug(`Location '${location}' is unknown from bicycle networks`);
     return location;
   }
 }

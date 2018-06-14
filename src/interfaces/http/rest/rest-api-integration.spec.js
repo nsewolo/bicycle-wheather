@@ -1,14 +1,18 @@
-import { RestApi } from './rest-api';
+import cors from 'cors';
 import request from 'supertest';
+import compression from 'compression';
+
+import { RestApi } from './rest-api';
 
 describe('Integration testing', () => {
-
+  const logger = {
+    info: ()=> {},
+      debug: ()=> {},
+      error: ()=> {}
+  };
   // Setup Rest server
-  const restApi = new RestApi({port: 3001});
+  const restApi = new RestApi({cors, compression, logger, port: 3001});
   restApi.start();
-
-  afterAll(() => {
-  });
 
   test('It should details for a given company', async () => {
     const response = await request(restApi.getApp()).get('/company/Bixi');

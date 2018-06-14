@@ -4,7 +4,12 @@ import weatherInvalidResponse from '../../data/weather-invalid-response';
 
 describe('WeatherService', () => {
 
-  const weatherService = new WeatherService({});
+  const logger = {
+    info: ()=> {},
+    debug: ()=> {},
+    error: ()=> {}
+  };
+  const weatherService = new WeatherService({logger});
 
   test('it should return undefined when city is empty', async () => {
     const result = await weatherService.findConditionOf('');
@@ -28,7 +33,7 @@ describe('WeatherService', () => {
     // Given
     const httpService = {};
     httpService.get = jest.fn(() => undefined);
-    const mockedService = new WeatherService({httpService});
+    const mockedService = new WeatherService({logger, httpService});
 
     // When
     const city = 'any-value';
@@ -44,7 +49,7 @@ describe('WeatherService', () => {
     // Given
     const httpService = {};
     httpService.get = jest.fn(() => weatherInvalidResponse);
-    const mockedService = new WeatherService({httpService});
+    const mockedService = new WeatherService({logger, httpService});
 
     // When
     const city = 'Montréal, QC';
@@ -67,7 +72,7 @@ describe('WeatherService', () => {
     };
     const httpService = {};
     httpService.get = jest.fn(() => weatherValidResponse);
-    const mockedService = new WeatherService({httpService});
+    const mockedService = new WeatherService({logger, httpService});
 
     // When
     const city = 'Montréal, QC';

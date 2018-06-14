@@ -1,13 +1,16 @@
 import axios from 'axios';
+
 import { BicycleService } from './bicycle-service';
 import validNetworkResponse from '../../data/networks-valid-response';
 import invalidNetworkResponse from '../../data/networks-invalid-reponse';
 
 describe('BicycleService', () => {
-
-  const bicycleService = new BicycleService({httpService: axios});
-
-  describe('findLocationOf', () => {
+  const logger = {
+    info: ()=> {},
+    debug: ()=> {},
+    error: ()=> {}
+  };
+  const bicycleService = new BicycleService({logger, httpService: axios});
 
     test('it should return undefined when company is an empty string', async () => {
       expect.assertions(1);
@@ -34,7 +37,7 @@ describe('BicycleService', () => {
       // Given
       const httpService = {};
       httpService.get = jest.fn(() => undefined);
-      const mockedService = new BicycleService({httpService});
+      const mockedService = new BicycleService({logger, httpService});
 
       // When
       const location = await mockedService.findLocationOf('unknown-company');
@@ -49,7 +52,7 @@ describe('BicycleService', () => {
       // Given
       const httpService = {};
       httpService.get = jest.fn(() => invalidNetworkResponse);
-      const mockedService = new BicycleService({httpService});
+      const mockedService = new BicycleService({logger, httpService});
 
       // When
       const location = await mockedService.findLocationOf('any-value');
@@ -79,5 +82,4 @@ describe('BicycleService', () => {
       expect(httpService.get).toHaveBeenCalled();
       expect(httpService.get).toHaveBeenCalledWith('http://api.citybik.es/v2/networks');
     });
-  });
 });

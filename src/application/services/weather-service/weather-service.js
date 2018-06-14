@@ -26,7 +26,6 @@ export class WeatherService extends HttpInterface {
     } else {
       this.log.info(`City '${city}' found in weather system.`);
       delete condition['code'];
-
       return {"condition": condition};
     }
   }
@@ -34,8 +33,8 @@ export class WeatherService extends HttpInterface {
   _extractCondition(response) {
     try {
       return response['data']['query']['results']['channel']['item']['condition'];
-    } catch (error) {
-      this.log.error(`Unable to parse response received from 'Weather-Api'`, error);
+    } catch (err) {
+      this.log.error(`Unable to parse response received from 'Weather-Api'`, err);
       return undefined;
     }
   }
