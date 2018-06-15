@@ -13,7 +13,7 @@ export class GraphQlServer {
     this.cors = cors;
   }
 
-  start() {
+  async start() {
     const root = {
       message: () => 'Hello World!'
     };
