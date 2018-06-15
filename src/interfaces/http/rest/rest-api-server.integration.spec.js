@@ -5,17 +5,24 @@ import compression from 'compression';
 import { RestApiServer } from './rest-api-server';
 
 describe('Integration testing', () => {
-  const logger = {
-    info: ()=> {},
+  let server;
+
+  beforeAll(() => {
+    const logger = {
+      info: ()=> {},
       debug: ()=> {},
       error: ()=> {}
-  };
-
-  const restApi = new RestApiServer({cors, compression, logger, port: 3001});
-  restApi.start();
+    };
+    server = new RestApiServer({
+      cors,
+      compression,
+      logger, port: 3002
+    });
+    server.start();
+  });
 
   test('It should details for a given company', async () => {
-    const response = await request(restApi.getApp()).get('/company/Bixi');
+    const response = await request(server.getApp()).get('/company/Bixi');
     const expected = {
       "name": "Bixi",
       "location": {
@@ -39,10 +46,16 @@ describe('Integration testing', () => {
   });
 
   test('It should response with 400 when unknown company', async () => {
-    return request(restApi.getApp()).get('/company/unknown').expect(400);
+    return request(server.getApp()).get('/company/unknown').expect(400);
   });
 
   test('It should response health with 200', async () => {
-    return request(restApi.getApp()).get('/health').expect(200);
+    return request(server.getApp()).get('/health').expect(200);
+  });
+
+  afterAll(() => {
+    server
+      .getApp()
+      .close();
   });
 });

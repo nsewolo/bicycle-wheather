@@ -2,7 +2,7 @@ import cors from 'cors';
 import compression from 'compression';
 
 import { logger  } from './infrastructure';
-import { RestApiServer } from './interfaces';
+import { RestApiServer, GraphQlServer } from './interfaces';
 
 const options = {
   logger,
@@ -13,5 +13,11 @@ const options = {
 new RestApiServer(options)
   .start()
   .catch((error) => {
-    options.logger.log(`Error during rest api execution: `, error);
+    options.logger.log(`Error during RESTfull api execution: `, error);
 });
+
+new GraphQlServer({logger, cors})
+  .start()
+  .catch((error) => {
+    options.logger.log(`Error during GrapghQl api execution: `, error);
+  });

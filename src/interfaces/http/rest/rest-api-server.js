@@ -1,7 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 
-import { Router } from '../router';
+import { Router } from './router';
 import { corsOptions } from '../config';
 import { BicycleWeatherComposer } from '../../../application';
 
