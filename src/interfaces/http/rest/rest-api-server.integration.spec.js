@@ -1,4 +1,5 @@
 import cors from 'cors';
+import express from 'express';
 import request from 'supertest';
 import compression from 'compression';
 
@@ -16,7 +17,9 @@ describe('Integration testing', () => {
     server = new RestApiServer({
       cors,
       compression,
-      logger, port: 3002
+      logger,
+      port: 3002,
+      app: express
     });
     server.start();
   });

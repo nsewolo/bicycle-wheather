@@ -1,4 +1,3 @@
-import express from 'express';
 import bodyParser from 'body-parser';
 import graphqlHTTP from 'express-graphql';
 
@@ -6,9 +5,9 @@ import { schema } from './schema';
 import { corsOptions } from '../config';
 
 export class GraphQlServer {
-  constructor({ logger, PORT = 3001, cors }) {
+  constructor({ logger, PORT = 3001, cors, app }) {
     this.port = PORT;
-    this.app = express();
+    this.app = app();
     this.log = logger;
     this.cors = cors;
   }

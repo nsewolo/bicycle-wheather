@@ -7,9 +7,9 @@ import { BicycleWeatherComposer } from '../../../application';
 
 export class RestApiServer {
 
-  constructor({port = 3000, logger, cors, compression}) {
+  constructor({port = 3000, logger, cors, compression, app}) {
     this.port = port;
-    this.app = express();
+    this.app = app();
     this.log = logger;
 
     this.app.use(cors(corsOptions))

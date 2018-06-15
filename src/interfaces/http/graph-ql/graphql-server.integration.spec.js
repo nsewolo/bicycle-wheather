@@ -1,4 +1,5 @@
 import cors from 'cors';
+import express from 'express';
 import request from 'supertest';
 
 import {GraphQlServer} from './graphql-server';
@@ -15,7 +16,8 @@ describe('GraphQL server', () => {
     server = new GraphQlServer({
       logger,
       PORT: 3003,
-      cors
+      cors,
+      app: express
     });
 
     server.start();
