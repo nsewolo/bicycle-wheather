@@ -1,4 +1,4 @@
-export class Router {
+export class Routes {
 
   constructor({ logger, router, composerService }) {
     this.router = router;

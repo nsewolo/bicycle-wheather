@@ -2,25 +2,26 @@ import cors from 'cors';
 import express from 'express';
 import request from 'supertest';
 
-import {GraphQlServer} from './graphql-server';
+import { GraphQlApi } from './graph-ql-api';
 
-describe('GraphQL server', () => {
-  let server;
+describe('GraphQL Api Integration tests', () => {
+  let api;
+  const server = express();
+  const PORT = 3003;
 
-  beforeAll( () => {
-    const logger = {
-      info: () => {},
-      debug: () => {},
-      error: () => {}
-    };
-    server = new GraphQlServer({
-      logger,
-      PORT: 3003,
-      cors,
-      app: express
+  beforeAll(() => {
+    api = new GraphQlApi({
+      logger: {
+        info: () => {},
+        debug: () => {},
+        error: () => {}
+      },
+      cors: cors,
+      router: express.Router(),
     });
 
-    server.start();
+    server.use(api.getRoutes());
+    server.listen(PORT)
   });
 
   test('it should return message', async () => {
@@ -28,7 +29,7 @@ describe('GraphQL server', () => {
     const expected = {"message": "Hello World!"};
 
     // When
-    const response = await request(server.getApp())
+    const response = await request(server)
       .post('/graphql')
       .send({query: '{message}'})
       .set('Accept', 'application/json');
@@ -40,8 +41,6 @@ describe('GraphQL server', () => {
   });
 
   afterAll(() => {
-    server
-      .getApp()
-      .close();
+    server.close();
   });
 });

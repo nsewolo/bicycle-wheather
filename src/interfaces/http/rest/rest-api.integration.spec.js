@@ -3,29 +3,35 @@ import express from 'express';
 import request from 'supertest';
 import compression from 'compression';
 
-import { RestApiServer } from './rest-api-server';
+import { RestApi } from './rest-api';
 
 describe('Integration testing', () => {
-  let server;
+  let api;
+  const server = express();
+  const PORT = 3002;
 
   beforeAll(() => {
     const logger = {
-      info: ()=> {},
-      debug: ()=> {},
-      error: ()=> {}
+      info: () => {
+      },
+      debug: () => {
+      },
+      error: () => {
+      }
     };
-    server = new RestApiServer({
-      cors,
-      compression,
-      logger,
-      port: 3002,
-      app: express
+    api = new RestApi({
+      cors: cors,
+      logger: logger,
+      compression: compression,
+      router: express.Router()
     });
-    server.start();
+
+    server.use(api.getRoutes());
+    server.listen(PORT);
   });
 
   test('It should details for a given company', async () => {
-    const response = await request(server.getApp()).get('/company/Bixi');
+    const response = await request(server).get('/company/Bixi');
     const expected = {
       "name": "Bixi",
       "location": {
@@ -49,16 +55,14 @@ describe('Integration testing', () => {
   });
 
   test('It should response with 400 when unknown company', async () => {
-    return request(server.getApp()).get('/company/unknown').expect(400);
+    return request(server).get('/company/unknown').expect(400);
   });
 
   test('It should response health with 200', async () => {
-    return request(server.getApp()).get('/health').expect(200);
+    return request(server).get('/health').expect(200);
   });
 
   afterAll(() => {
-    server
-      .getApp()
-      .close();
+    server.close();
   });
 });
