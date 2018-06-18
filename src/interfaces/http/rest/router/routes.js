@@ -15,7 +15,7 @@ export class Routes {
   // private methods
   _registerRoutes() {
     this.router.use((req, res, next) => {
-      this.log.info(`Time api requests: ${new Date().toString()}`);
+      this.log.info(`Time: ${new Date().toString()}`);
       next();
     });
 
@@ -25,19 +25,20 @@ export class Routes {
         res
           .status(200)
           .send(details);
-        return;
+        this.log.info(`Response from api was: , with status '${res.statusCode}'`, details);
       } else {
         res
           .status(400)
           .send(new Error(`Bad request sent.`));
+        this.log.error(`Response from api with status '${res.statusCode}'`);
       }
-      this.log.info('Response from api was :', details);
     });
 
     this.router.get('/health', (req, res) => {
       res
         .status(200)
         .send({"health": "UP"});
+      this.log.info(`Response from api was: , with status '${res.statusCode}'`);
     });
   }
 }
