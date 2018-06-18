@@ -26,7 +26,6 @@ describe('RestApi', () => {
     const routes = restApi.getRoutes();
 
     expect(routes).toBeDefined();
-    expect(routes.use).toHaveBeenCalled();
     expect(routes.get).toHaveBeenCalled();
   });
 });

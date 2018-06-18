@@ -15,7 +15,7 @@ export class Routes {
   // private methods
   _registerRoutes() {
     this.router.use((req, res, next) => {
-      this.log.info(`Time RESTfull API: ${new Date().toString()}`);
+      this.log.info(`Time api requests: ${new Date().toString()}`);
       next();
     });
 
@@ -25,6 +25,7 @@ export class Routes {
         res
           .status(200)
           .send(details);
+        return;
       } else {
         res
           .status(400)
@@ -34,7 +35,6 @@ export class Routes {
     });
 
     this.router.get('/health', (req, res) => {
-      this.log.info(`Calling path: ${req.route["path"]}`);
       res
         .status(200)
         .send({"health": "UP"});

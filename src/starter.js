@@ -20,7 +20,7 @@ server
   // Apis register routes
   .use(new RestApi({logger, router}).getRoutes())
   .use(new GraphQlApi({logger, router}).getRoutes())
-  // Run server
+  // Run server on port
   .listen(PORT);
 
 log.info(`Started RESTfull and GraphQL servers on port: ${PORT}`);
