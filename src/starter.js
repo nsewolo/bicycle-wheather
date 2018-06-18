@@ -3,8 +3,8 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import compression from 'compression';
 
-import {logger} from './infrastructure';
-import {corsOptions, GraphQlApi, RestApi} from './interfaces';
+import { logger } from './infrastructure';
+import { corsOptions, GraphQlApi, RestApi } from './interfaces';
 
 const PORT = process.env.PORT || 3000;
 const router = express.Router();
