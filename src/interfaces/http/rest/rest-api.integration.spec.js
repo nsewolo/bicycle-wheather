@@ -1,4 +1,3 @@
-import cors from 'cors';
 import express from 'express';
 import request from 'supertest';
 import compression from 'compression';
@@ -20,7 +19,6 @@ describe('Integration testing', () => {
       }
     };
     api = new RestApi({
-      cors: cors,
       logger: logger,
       compression: compression,
       router: express.Router()

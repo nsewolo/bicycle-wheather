@@ -16,7 +16,6 @@ describe('GraphQL Api Integration tests', () => {
         debug: () => {},
         error: () => {}
       },
-      cors: cors,
       router: express.Router(),
     });
 

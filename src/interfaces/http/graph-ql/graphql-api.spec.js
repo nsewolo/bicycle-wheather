@@ -1,5 +1,3 @@
-import * as cors from 'cors';
-
 import { GraphQlApi } from './graph-ql-api';
 
 describe('GraphQL Api', () => {
@@ -17,8 +15,7 @@ describe('GraphQL Api', () => {
         },
         error: () => {
         }
-      },
-      cors: cors
+      }
     });
   });
 
