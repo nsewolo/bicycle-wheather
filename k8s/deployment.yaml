@@ -1,0 +1,24 @@
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: bicycle-whether-api
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        name: bicycle-whether-api
+    spec:
+      containers:
+        - name: bicycle-whether-api
+          image: bicycle-whether-api
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+          livenessProbe:
+            initialDelaySeconds: 2
+            periodSeconds: 5
+            httpGet:
+              path: /health
+              port: 3000

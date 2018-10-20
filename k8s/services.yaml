@@ -1,0 +1,19 @@
+---
+apiVersion: skaffold/v1alpha3
+kind: Config
+build:
+  artifacts:
+    - imageName: bicycle-whether-api
+      workspace: .
+      docker: {}
+      bazel: null
+  local:
+    skipPush: null
+  googleCloudBuild: null
+  kaniko: null
+deploy:
+  helm: null
+  kubectl:
+    manifests:
+      - deployment.yaml
+  kustomize: null

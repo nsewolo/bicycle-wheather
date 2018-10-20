@@ -1,11 +1,11 @@
 # ================= Base =========================
 FROM node:carbon AS base
-# Create app directory
 WORKDIR /app
 
 # ================= Dependencies =================
 FROM base AS dependencies
 COPY package*.json ./
+COPY yarn.lock ./
 RUN npm install
 
 # ================= Copy Files/Build =============
@@ -23,7 +23,7 @@ RUN  npm run lint &&
 FROM node:8.9-alpine AS release
 WORKDIR /app
 COPY --from=dependencies /app/package.json ./
+COPY --from=dependencies /app/yarn.lock ./
 COPY --from=build /app ./
 RUN npm install --only=production
-# Run command
 CMD ["npm", "run", "start"]

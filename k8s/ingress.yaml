@@ -1,0 +1,13 @@
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: bicycle-whether-api
+spec:
+  rules:
+    - http:
+        paths:
+          - backend:
+              serviceName: bicycle-whether-api
+              servicePort: 80
+            path: /
